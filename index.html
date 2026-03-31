@@ -1554,6 +1554,7 @@
     btn.disabled = true;
     btn.querySelector('span').textContent = 'Odesílám...';
     var params = {
+      name: document.getElementById('cfEmail').value,
       email: document.getElementById('cfEmail').value,
       telefon: document.getElementById('cfPhone').value,
       zprava: document.getElementById('cfMsg').value
