@@ -1177,8 +1177,6 @@
   <meta name="theme-color" content="#0A0A0A">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-<script type="text/javascript">emailjs.init("phmutr92EIDGIWcLk");</script>
 </head>
 <body>
 
@@ -1553,19 +1551,34 @@
     var btn = document.getElementById('formSubmitBtn');
     btn.disabled = true;
     btn.querySelector('span').textContent = 'Odesílám...';
-    var params = {
-      name: document.getElementById('cfEmail').value,
+    var data = {
+      access_key: '4635f72d-d33b-4ecc-9366-7df0cd12bc88',
       email: document.getElementById('cfEmail').value,
       telefon: document.getElementById('cfPhone').value,
-      zprava: document.getElementById('cfMsg').value
+      zprava: document.getElementById('cfMsg').value,
+      subject: 'Nová poptávka z webu Zasebe Finance'
     };
-    emailjs.send("service_gjyvx8e", "template_afbxaxs", params).then(function(){
-      document.getElementById('contactForm').innerHTML = '<div style="text-align:center;padding:40px 0;"><svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-bottom:20px;"><circle cx="28" cy="28" r="26" stroke="#C9A84C" stroke-width="2" fill="rgba(201,168,76,0.08)"/><path d="M17 28l7 7 15-15" stroke="#C9A84C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg><h3 style="font-family:Cormorant Garamond,serif;font-size:28px;font-weight:300;color:#F5F0E8;margin-bottom:10px;">Zpráva odeslána</h3><p style="font-size:15px;color:rgba(245,240,232,.65);font-weight:300;">Děkujeme za Vaši zprávu. Ozveme se Vám do 24 hodin.</p></div>';
-    }, function(error){
+    fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify(data)
+    }).then(function(res){
+      return res.json();
+    }).then(function(json){
+      if(json.success){
+        document.getElementById('contactForm').innerHTML = '<div style="text-align:center;padding:40px 0;"><svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-bottom:20px;"><circle cx="28" cy="28" r="26" stroke="#C9A84C" stroke-width="2" fill="rgba(201,168,76,0.08)"/><path d="M17 28l7 7 15-15" stroke="#C9A84C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg><h3 style="font-family:Cormorant Garamond,serif;font-size:28px;font-weight:300;color:#F5F0E8;margin-bottom:10px;">Zpráva odeslána</h3><p style="font-size:15px;color:rgba(245,240,232,.65);font-weight:300;">Děkujeme za Vaši zprávu. Ozveme se Vám do 24 hodin.</p></div>';
+      } else {
+        btn.disabled = false;
+        btn.querySelector('span').textContent = 'Odeslat zprávu';
+        alert('Chyba při odesílání. Zkuste to prosím znovu.');
+      }
+    }).catch(function(){
       btn.disabled = false;
       btn.querySelector('span').textContent = 'Odeslat zprávu';
       alert('Chyba při odesílání. Zkuste to prosím znovu.');
-      console.error('EmailJS error:', error);
     });
   });
 
