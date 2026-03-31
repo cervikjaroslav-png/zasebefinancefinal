@@ -1559,7 +1559,7 @@
       telefon: document.getElementById('cfPhone').value,
       zprava: document.getElementById('cfMsg').value
     };
-    emailjs.send("service_gjyvx8e", "template_hx3wyi2", params).then(function(){
+    emailjs.send("service_gjyvx8e", "template_afbxaxs", params).then(function(){
       document.getElementById('contactForm').innerHTML = '<div style="text-align:center;padding:40px 0;"><svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-bottom:20px;"><circle cx="28" cy="28" r="26" stroke="#C9A84C" stroke-width="2" fill="rgba(201,168,76,0.08)"/><path d="M17 28l7 7 15-15" stroke="#C9A84C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg><h3 style="font-family:Cormorant Garamond,serif;font-size:28px;font-weight:300;color:#F5F0E8;margin-bottom:10px;">Zpráva odeslána</h3><p style="font-size:15px;color:rgba(245,240,232,.65);font-weight:300;">Děkujeme za Vaši zprávu. Ozveme se Vám do 24 hodin.</p></div>';
     }, function(error){
       btn.disabled = false;
